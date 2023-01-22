@@ -44,8 +44,8 @@ public class Main extends JFrame {
 	private DlgPoint dlgp;
 	DlgLine dlgl;
 	HashMap<String,Integer> a=new HashMap<String,Integer>();
-	
-	
+	Point previousPoint;
+	private DlgCircleM dlgcirm;
 	
 	
 	public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
@@ -139,9 +139,6 @@ public class Main extends JFrame {
 		
 		JToggleButton tglbtnDelete = new JToggleButton("Delete");
 		panel.add(tglbtnDelete);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
 		
 		JLabel koordinata = new JLabel("0,0");
 		contentPane.add(koordinata, BorderLayout.SOUTH);
@@ -400,13 +397,14 @@ public class Main extends JFrame {
 		            }
 		            else{
 		                
-		                Point previousPoint = nextPoint;
+		                previousPoint = nextPoint;
 		                nextPoint = new Point(e.getX(),e.getY());
 
 					Line l=new Line(previousPoint,nextPoint);
 					canvas.getShapes().add(l);
 					repaint();
-
+					previousPoint=new Point();
+					twoPoints=false;
 				}
 				}
 
@@ -471,12 +469,11 @@ public class Main extends JFrame {
 				if(tglbtnSelect.isSelected())
 				{
 
-					for(int j=0; j< canvas.getShapes().size(); j++)
+					for(Shape s:canvas.getShapes())
 					{
-						if(canvas.getShapes().get(j).contains(e.getX(),e.getY()))
+						if(s.contains(e.getX(),e.getY()))
 						{
-							Shape s=canvas.getShapes().get(j);
-							
+
 							if(s instanceof Point)
 							{
 								Point temp=(Point)s;
@@ -488,13 +485,12 @@ public class Main extends JFrame {
 								
 								if(dlgp.check) 
 								{
-								canvas.getShapes().remove(s);
+							
 								
-								temp.setX(Integer.parseInt(dlgp.getTextFieldX().getText()));
-								temp.setY(Integer.parseInt(dlgp.getTextFieldY().getText()));
+								temp.moveTo(Integer.parseInt(dlgp.getTextFieldX().getText()), Integer.parseInt(dlgp.getTextFieldY().getText()));
 								}
 								
-								canvas.getShapes().add(temp);
+								
 								repaint();
 							}
 							if(s instanceof Line)
@@ -512,15 +508,18 @@ public class Main extends JFrame {
 								if(dlgl.check)
 								{
 									
-								canvas.getShapes().remove(s);
+								
 								
 								temp.setStartPoint(new Point(Integer.parseInt(dlgl.getTextFieldStartX().getText()),Integer.parseInt(dlgl.getTextFieldStartY().getText())));
 								temp.setEndPoint(new Point(Integer.parseInt(dlgl.getTextFieldEndX().getText()),Integer.parseInt(dlgl.getTextFieldEndY().getText())));		
 							
+								
+								repaint();
+								
 								}	
 								
-								canvas.getShapes().add(temp);
-								repaint();
+								
+								
 								
 							}
 							
@@ -528,6 +527,31 @@ public class Main extends JFrame {
 							{
 								Circle temp=(Circle)s;
 								
+								dlgcirm=new DlgCircleM();
+								dlgcirm.setVisible(true);
+								
+								dlgcirm.getTextFieldRadius().setText(Integer.toString(temp.getRadius()));
+								dlgcirm.getTextFieldX().setText(Integer.toString(temp.getCenter().getX()));
+								dlgcirm.getTextFieldY().setText(Integer.toString(temp.getCenter().getY()));
+								
+								if(dlgcirm.check)
+								{
+								
+									temp.setCenter(new Point(Integer.parseInt(dlgcirm.getTextFieldX().getText()),Integer.parseInt(dlgcirm.getTextFieldY().getText())));
+									try {
+										temp.setRadius(Integer.parseInt(dlgcirm.getTextFieldRadius().getText()));
+									} catch (NumberFormatException e1) {
+										
+										e1.printStackTrace();
+									} catch (Exception e1) {
+										
+										e1.printStackTrace();
+									}
+									
+									
+									repaint();
+									
+								}
 							}
 						}
 							
@@ -546,20 +570,18 @@ public class Main extends JFrame {
 							if(canvas.getShapes().get(j).contains(e.getX(),e.getY()))
 							{
 								canvas.getShapes().get(j).setSelected(true);
+								
 								int res = JOptionPane.showConfirmDialog(null, 
 								         "Da li ste sigurni da zelite da obrisete?", 
 								         "Brisanje", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 								if(res==JOptionPane.YES_OPTION)
 								{
 									canvas.getShapes().remove(canvas.getShapes().get(j));
-									repaint();
+	
 								}
 							}
-							else
-							{
-								canvas.getShapes().get(j).setSelected(false);
-							}
-							
+						
+							repaint();
 						}
 						
 							
