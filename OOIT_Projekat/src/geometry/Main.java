@@ -46,6 +46,9 @@ public class Main extends JFrame {
 	HashMap<String,Integer> a=new HashMap<String,Integer>();
 	Point previousPoint;
 	private DlgCircleM dlgcirm;
+	private DlgRectangleM dlgrecm;
+	private DlgDonutM dlgdonm;
+	
 	
 	
 	public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
@@ -488,6 +491,7 @@ public class Main extends JFrame {
 							
 								
 								temp.moveTo(Integer.parseInt(dlgp.getTextFieldX().getText()), Integer.parseInt(dlgp.getTextFieldY().getText()));
+								
 								}
 								
 								
@@ -553,6 +557,64 @@ public class Main extends JFrame {
 									
 								}
 							}
+								
+								
+								if(s instanceof Rectangle)
+								{
+									Rectangle temp=(Rectangle)s;
+									
+									dlgrecm=new DlgRectangleM();
+									dlgrecm.setVisible(true);
+									
+									dlgrecm.getTextFieldWidth().setText(Integer.toString(temp.getWidth()));
+									dlgrecm.getTextFieldHeight().setText(Integer.toString(temp.getHeight()));
+									dlgrecm.getTextFieldX().setText(Integer.toString(temp.getUpperLeft().getX()));
+									dlgrecm.getTextFieldY().setText(Integer.toString(temp.getUpperLeft().getY()));
+									
+									if(dlgrecm.check)
+									{
+										temp.setWidth(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
+										temp.setHeight(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
+										temp.setUpperLeft(new Point(Integer.parseInt(dlgrecm.getTextFieldX().getText()),Integer.parseInt(dlgrecm.getTextFieldY().getText())));
+										
+									}
+									
+									
+									repaint();
+									
+									
+								}
+									
+							
+								if(s instanceof Donut)
+								{
+									Donut temp=(Donut)s;
+									
+									dlgdonm=new DlgDonutM();
+									
+									dlgdonm.getTextFieldOR().setText(Integer.toString(temp.getRadius()));
+									dlgdonm.getTextFieldIR().setText(Integer.toString(temp.getInnerRadius()));
+									dlgdonm.getTextFieldX().setText(Integer.toString(temp.getCenter().getX()));
+									dlgdonm.getTextFieldY().setText(Integer.toString(temp.getCenter().getY()));
+									
+									if(dlgdonm.check)
+									{
+										temp.setCenter(new Point(Integer.parseInt(dlgdonm.getTextFieldX().getText()),Integer.parseInt(dlgdonm.getTextFieldY().getText())));
+										try {
+											temp.setRadius(Integer.parseInt(dlgdonm.getTextFieldOR().getText()));
+										} catch (NumberFormatException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										} catch (Exception e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+										
+										temp.setInnerRadius(Integer.parseInt(dlgdonm.getTextFieldIR().getText()));
+									}
+									
+									repaint();
+								}
 						}
 							
 							
