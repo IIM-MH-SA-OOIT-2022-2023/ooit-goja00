@@ -1,9 +1,11 @@
 package geometry;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,8 +26,8 @@ public class DlgRectangleM extends JDialog {
 	protected boolean check;
 	private JTextField textFieldX;
 	private JTextField textFieldY;
-	private JTextField textField;
-	
+	private JTextField textFieldColor;
+	protected Color c;
 	
 
 	
@@ -47,6 +49,7 @@ public class DlgRectangleM extends JDialog {
 	 * Create the dialog.
 	 */
 	public DlgRectangleM() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 320, 294);
 		setModal(true);
 		setTitle("Unos dimenzija");
@@ -145,18 +148,27 @@ public class DlgRectangleM extends JDialog {
 			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
 		{
-			textField = new JTextField();
-			textField.setEditable(false);
-			GridBagConstraints gbc_textField = new GridBagConstraints();
-			gbc_textField.insets = new Insets(0, 0, 0, 5);
-			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-			gbc_textField.gridx = 1;
-			gbc_textField.gridy = 4;
-			contentPanel.add(textField, gbc_textField);
-			textField.setColumns(10);
+			textFieldColor = new JTextField();
+			textFieldColor.setEditable(false);
+			GridBagConstraints gbc_textFieldColor = new GridBagConstraints();
+			gbc_textFieldColor.insets = new Insets(0, 0, 0, 5);
+			gbc_textFieldColor.fill = GridBagConstraints.HORIZONTAL;
+			gbc_textFieldColor.gridx = 1;
+			gbc_textFieldColor.gridy = 4;
+			contentPanel.add(textFieldColor, gbc_textFieldColor);
+			textFieldColor.setColumns(10);
 		}
 		{
 			JButton btnNewButtonColor = new JButton("Choose color");
+			btnNewButtonColor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+
+					c = JColorChooser.showDialog(null, "Choose color",Color.RED);
+					textFieldColor.setBackground(c);
+					
+				}
+			});
 			GridBagConstraints gbc_btnNewButtonColor = new GridBagConstraints();
 			gbc_btnNewButtonColor.gridx = 2;
 			gbc_btnNewButtonColor.gridy = 4;
@@ -244,11 +256,11 @@ public class DlgRectangleM extends JDialog {
 	}
 
 	public JTextField getTextField() {
-		return textField;
+		return textFieldColor;
 	}
 
 	public void setTextField(JTextField textField) {
-		this.textField = textField;
+		this.textFieldColor = textField;
 	}
 
 }

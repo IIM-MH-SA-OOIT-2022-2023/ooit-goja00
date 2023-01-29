@@ -26,6 +26,18 @@ public class DlgCircleM extends JDialog {
 	private JTextField textFieldY;
 	private JTextField textFieldX;
 	private JTextField textFieldColor;
+	protected Color c;
+	
+	
+	
+	public Color getC() {
+		return c;
+	}
+
+	public void setC(Color c) {
+		this.c = c;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +55,7 @@ public class DlgCircleM extends JDialog {
 	 * Create the dialog.
 	 */
 	public DlgCircleM() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 252);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
@@ -137,7 +150,7 @@ public class DlgCircleM extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					
 					
-					Color c=JColorChooser.showDialog(null, "Choose color",Color.RED);
+					c = JColorChooser.showDialog(null, "Choose color",Color.RED);
 					textFieldColor.setBackground(c);
 					
 					

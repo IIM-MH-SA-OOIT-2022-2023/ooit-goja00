@@ -27,8 +27,16 @@ public class PnlDrawing extends JPanel {
 		super.paint(g);
 		for(Shape s: shapes) {
 
+			if(s.isSelected())
+			{
+			g.setColor(s.getC());
 			s.draw(g);
 			}
+			else {
+				s.draw(g);
+			}
+			
+		}
 				
 	}
 	

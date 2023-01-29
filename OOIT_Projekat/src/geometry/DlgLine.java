@@ -49,6 +49,7 @@ public class DlgLine extends JDialog {
 	 * Create the dialog.
 	 */
 	public DlgLine() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 452, 274);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());

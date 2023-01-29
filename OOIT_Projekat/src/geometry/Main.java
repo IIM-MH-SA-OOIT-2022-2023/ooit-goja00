@@ -214,6 +214,12 @@ public class Main extends JFrame {
 		btnSort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+				if(list.getModel().getSize()==0)
+				{
+					JOptionPane.showMessageDialog(null, "Nema pravouganika u listi!!", "Greska!", JOptionPane.WARNING_MESSAGE);
+				}
+				else
+				{
 				
 				dlm.removeAllElements();
 				list.setModel(dlm);
@@ -227,6 +233,7 @@ public class Main extends JFrame {
 				}
 				
 				list.setModel(dlm);
+				}
 			
 			}
 		});
@@ -480,70 +487,77 @@ public class Main extends JFrame {
 							if(s instanceof Point)
 							{
 								Point temp=(Point)s;
+								Point novi=new Point();
+								
 								dlgp=new DlgPoint();
-								dlgp.setVisible(true);
 								
 								dlgp.getTextFieldX().setText(Integer.toString(temp.getX()));
 								dlgp.getTextFieldY().setText(Integer.toString(temp.getY()));
 								
+								dlgp.setVisible(true);
 								if(dlgp.check) 
 								{
-							
-								
-								temp.moveTo(Integer.parseInt(dlgp.getTextFieldX().getText()), Integer.parseInt(dlgp.getTextFieldY().getText()));
-								
-								}
-								
+									s.setSelected(true);
+									novi.setC(dlgp.c);
+								novi.moveTo(Integer.parseInt(dlgp.getTextFieldX().getText()), Integer.parseInt(dlgp.getTextFieldY().getText()));
+	
+								canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
 								
 								repaint();
+								}
+								
 							}
+							
 							if(s instanceof Line)
 							{
 								Line temp=(Line)s;
+								Line novi=new Line();
+								
 								dlgl=new DlgLine();
-								dlgl.setVisible(true);
+								
 								
 								dlgl.getTextFieldStartX().setText(Integer.toString(temp.getStartPoint().getX()));
 								dlgl.getTextFieldStartY().setText(Integer.toString(temp.getStartPoint().getY()));
 								dlgl.getTextFieldEndX().setText(Integer.toString(temp.getEndPoint().getX()));
 								dlgl.getTextFieldEndY().setText(Integer.toString(temp.getEndPoint().getY()));
-								
+								dlgl.setVisible(true);
 								
 								if(dlgl.check)
 								{
 									
+									s.setSelected(true);
+									novi.setC(dlgl.c);
+								novi.setStartPoint(new Point(Integer.parseInt(dlgl.getTextFieldStartX().getText()),Integer.parseInt(dlgl.getTextFieldStartY().getText())));
+								novi.setEndPoint(new Point(Integer.parseInt(dlgl.getTextFieldEndX().getText()),Integer.parseInt(dlgl.getTextFieldEndY().getText())));		
 								
 								
-								temp.setStartPoint(new Point(Integer.parseInt(dlgl.getTextFieldStartX().getText()),Integer.parseInt(dlgl.getTextFieldStartY().getText())));
-								temp.setEndPoint(new Point(Integer.parseInt(dlgl.getTextFieldEndX().getText()),Integer.parseInt(dlgl.getTextFieldEndY().getText())));		
-							
-								
+								canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
 								repaint();
 								
 								}	
-								
-								
-								
 								
 							}
 							
 							if(s instanceof Circle)
 							{
 								Circle temp=(Circle)s;
+								Circle novi=new Circle();
 								
 								dlgcirm=new DlgCircleM();
-								dlgcirm.setVisible(true);
+								
 								
 								dlgcirm.getTextFieldRadius().setText(Integer.toString(temp.getRadius()));
 								dlgcirm.getTextFieldX().setText(Integer.toString(temp.getCenter().getX()));
 								dlgcirm.getTextFieldY().setText(Integer.toString(temp.getCenter().getY()));
 								
+								dlgcirm.setVisible(true);
+								
 								if(dlgcirm.check)
 								{
-								
-									temp.setCenter(new Point(Integer.parseInt(dlgcirm.getTextFieldX().getText()),Integer.parseInt(dlgcirm.getTextFieldY().getText())));
+									s.setSelected(true);
+									novi.setCenter(new Point(Integer.parseInt(dlgcirm.getTextFieldX().getText()),Integer.parseInt(dlgcirm.getTextFieldY().getText())));
 									try {
-										temp.setRadius(Integer.parseInt(dlgcirm.getTextFieldRadius().getText()));
+										novi.setRadius(Integer.parseInt(dlgcirm.getTextFieldRadius().getText()));
 									} catch (NumberFormatException e1) {
 										
 										e1.printStackTrace();
@@ -551,8 +565,9 @@ public class Main extends JFrame {
 										
 										e1.printStackTrace();
 									}
+									novi.setC(dlgcirm.c);
 									
-									
+									canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
 									repaint();
 									
 								}
@@ -562,26 +577,27 @@ public class Main extends JFrame {
 								if(s instanceof Rectangle)
 								{
 									Rectangle temp=(Rectangle)s;
+									Rectangle novi=new Rectangle();
 									
 									dlgrecm=new DlgRectangleM();
-									dlgrecm.setVisible(true);
-									
+
 									dlgrecm.getTextFieldWidth().setText(Integer.toString(temp.getWidth()));
 									dlgrecm.getTextFieldHeight().setText(Integer.toString(temp.getHeight()));
 									dlgrecm.getTextFieldX().setText(Integer.toString(temp.getUpperLeft().getX()));
 									dlgrecm.getTextFieldY().setText(Integer.toString(temp.getUpperLeft().getY()));
+									dlgrecm.setVisible(true);
 									
 									if(dlgrecm.check)
 									{
-										temp.setWidth(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
-										temp.setHeight(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
-										temp.setUpperLeft(new Point(Integer.parseInt(dlgrecm.getTextFieldX().getText()),Integer.parseInt(dlgrecm.getTextFieldY().getText())));
+										s.setSelected(true);
+										novi.setC(dlgrecm.c);
+										novi.setWidth(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
+										novi.setHeight(Integer.parseInt(dlgrecm.getTextFieldHeight().getText()));
+										novi.setUpperLeft(new Point(Integer.parseInt(dlgrecm.getTextFieldX().getText()),Integer.parseInt(dlgrecm.getTextFieldY().getText())));
 										
+										canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+										repaint();
 									}
-									
-									
-									repaint();
-									
 									
 								}
 									
@@ -589,6 +605,7 @@ public class Main extends JFrame {
 								if(s instanceof Donut)
 								{
 									Donut temp=(Donut)s;
+									Donut novi=new Donut();
 									
 									dlgdonm=new DlgDonutM();
 									
@@ -597,11 +614,15 @@ public class Main extends JFrame {
 									dlgdonm.getTextFieldX().setText(Integer.toString(temp.getCenter().getX()));
 									dlgdonm.getTextFieldY().setText(Integer.toString(temp.getCenter().getY()));
 									
+									dlgdonm.setVisible(true);
+									
 									if(dlgdonm.check)
 									{
-										temp.setCenter(new Point(Integer.parseInt(dlgdonm.getTextFieldX().getText()),Integer.parseInt(dlgdonm.getTextFieldY().getText())));
+										s.setSelected(true);
+										novi.setC(dlgdonm.c);
+										novi.setCenter(new Point(Integer.parseInt(dlgdonm.getTextFieldX().getText()),Integer.parseInt(dlgdonm.getTextFieldY().getText())));
 										try {
-											temp.setRadius(Integer.parseInt(dlgdonm.getTextFieldOR().getText()));
+											novi.setRadius(Integer.parseInt(dlgdonm.getTextFieldOR().getText()));
 										} catch (NumberFormatException e1) {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
@@ -610,7 +631,10 @@ public class Main extends JFrame {
 											e1.printStackTrace();
 										}
 										
-										temp.setInnerRadius(Integer.parseInt(dlgdonm.getTextFieldIR().getText()));
+										novi.setInnerRadius(Integer.parseInt(dlgdonm.getTextFieldIR().getText()));
+										
+										canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+									repaint();	
 									}
 									
 									repaint();
@@ -631,7 +655,6 @@ public class Main extends JFrame {
 
 							if(canvas.getShapes().get(j).contains(e.getX(),e.getY()))
 							{
-								canvas.getShapes().get(j).setSelected(true);
 								
 								int res = JOptionPane.showConfirmDialog(null, 
 								         "Da li ste sigurni da zelite da obrisete?", 

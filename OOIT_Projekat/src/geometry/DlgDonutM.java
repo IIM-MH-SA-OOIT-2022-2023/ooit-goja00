@@ -27,6 +27,8 @@ public class DlgDonutM extends JDialog {
 	private JTextField textFieldX;
 	private JTextField textFieldColor;
 	private JTextField textFieldOR;
+	protected Color c;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -44,6 +46,7 @@ public class DlgDonutM extends JDialog {
 	 * Create the dialog.
 	 */
 	public DlgDonutM() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 252);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
@@ -156,7 +159,7 @@ public class DlgDonutM extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					
 					
-					Color c=JColorChooser.showDialog(null, "Choose color",Color.RED);
+					c=JColorChooser.showDialog(null, "Choose color",Color.RED);
 					textFieldColor.setBackground(c);
 					
 					
