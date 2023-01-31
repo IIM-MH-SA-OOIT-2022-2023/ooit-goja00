@@ -497,11 +497,11 @@ public class Main extends JFrame {
 								dlgp.setVisible(true);
 								if(dlgp.check) 
 								{
-									s.setSelected(true);
+									novi.setSelected(true);
 									novi.setC(dlgp.c);
 								novi.moveTo(Integer.parseInt(dlgp.getTextFieldX().getText()), Integer.parseInt(dlgp.getTextFieldY().getText()));
 	
-								canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+								canvas.getShapes().set(canvas.getShapes().indexOf(temp), novi);
 								
 								repaint();
 								}
@@ -525,13 +525,13 @@ public class Main extends JFrame {
 								if(dlgl.check)
 								{
 									
-									s.setSelected(true);
+									novi.setSelected(true);
 									novi.setC(dlgl.c);
 								novi.setStartPoint(new Point(Integer.parseInt(dlgl.getTextFieldStartX().getText()),Integer.parseInt(dlgl.getTextFieldStartY().getText())));
 								novi.setEndPoint(new Point(Integer.parseInt(dlgl.getTextFieldEndX().getText()),Integer.parseInt(dlgl.getTextFieldEndY().getText())));		
 								
 								
-								canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+								canvas.getShapes().set(canvas.getShapes().indexOf(temp), novi);
 								repaint();
 								
 								}	
@@ -554,7 +554,7 @@ public class Main extends JFrame {
 								
 								if(dlgcirm.check)
 								{
-									s.setSelected(true);
+									novi.setSelected(true);
 									novi.setCenter(new Point(Integer.parseInt(dlgcirm.getTextFieldX().getText()),Integer.parseInt(dlgcirm.getTextFieldY().getText())));
 									try {
 										novi.setRadius(Integer.parseInt(dlgcirm.getTextFieldRadius().getText()));
@@ -567,7 +567,7 @@ public class Main extends JFrame {
 									}
 									novi.setC(dlgcirm.c);
 									
-									canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+									canvas.getShapes().set(canvas.getShapes().indexOf(temp), novi);
 									repaint();
 									
 								}
@@ -589,13 +589,13 @@ public class Main extends JFrame {
 									
 									if(dlgrecm.check)
 									{
-										s.setSelected(true);
+										novi.setSelected(true);
 										novi.setC(dlgrecm.c);
 										novi.setWidth(Integer.parseInt(dlgrecm.getTextFieldWidth().getText()));
 										novi.setHeight(Integer.parseInt(dlgrecm.getTextFieldHeight().getText()));
 										novi.setUpperLeft(new Point(Integer.parseInt(dlgrecm.getTextFieldX().getText()),Integer.parseInt(dlgrecm.getTextFieldY().getText())));
 										
-										canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+										canvas.getShapes().set(canvas.getShapes().indexOf(temp), novi);
 										repaint();
 									}
 									
@@ -618,26 +618,25 @@ public class Main extends JFrame {
 									
 									if(dlgdonm.check)
 									{
-										s.setSelected(true);
+										novi.setSelected(true);
 										novi.setC(dlgdonm.c);
 										novi.setCenter(new Point(Integer.parseInt(dlgdonm.getTextFieldX().getText()),Integer.parseInt(dlgdonm.getTextFieldY().getText())));
 										try {
 											novi.setRadius(Integer.parseInt(dlgdonm.getTextFieldOR().getText()));
 										} catch (NumberFormatException e1) {
-											// TODO Auto-generated catch block
+						
 											e1.printStackTrace();
 										} catch (Exception e1) {
-											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
 										
 										novi.setInnerRadius(Integer.parseInt(dlgdonm.getTextFieldIR().getText()));
 										
-										canvas.getShapes().set(canvas.getShapes().indexOf(s), novi);
+										canvas.getShapes().set(canvas.getShapes().indexOf(temp), novi);
 									repaint();	
 									}
 									
-									repaint();
+									
 								}
 						}
 							
